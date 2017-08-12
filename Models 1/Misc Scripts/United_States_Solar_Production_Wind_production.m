@@ -1,0 +1,22 @@
+clear all;
+year1 = xlsread('UNdata_SolarProduction.xlsx','C702:C723');
+quantity1 = xlsread('UNdata_SolarProduction.xlsx','E702:E723');
+year1 = year1-1991;
+subplot(2,1,1);
+plot(year1,quantity1,'r*');
+title('United States Solar Production');
+xlabel('Year');
+ylabel('Quantity,(KWh, million)');
+hold on;
+yq2 = polyfit(year1,quantity1,3);
+disp(yq2);
+yfit2 = polyval(yq2,year1);
+plot(year1,yfit2);
+hold on 
+residuals1 = quantity1-yfit2;
+subplot(2,1,2);
+bar(year1,residuals1);
+xlabel('Year');
+ylabel('Residuals');
+residual_norm1 = sqrt(sum(residuals1.^2));
+disp(residual_norm1);
